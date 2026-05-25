@@ -1,30 +1,42 @@
-# Codex Chat Backup — 2026-05-25
+# Claude Code Session Backup — 2026-05-25
 
 ## Summary
+Migrated three automation workflows from Codex to Claude Code, configured community news automation for Feishu, and set up auto-renewal for persistent scheduling.
 
-Today's session focused on migrating three automated workflows from Codex to Claude Code due to an account switch.
+## Automations Configured
 
-## Key Activities
+### 1. Chat Backup (Daily 20:07)
+- Backs up daily chat content to GitHub repo `AmberTreelet/codex`
+- Cron ID: `22f8dc82`
 
-### 1. Automation Migration
-- Migrated three automation workflows from Codex (`~/.codex/automations/`) to Claude Code CronCreate
-- Original automations: Daily Codex Chat Backup, Web3 Feishu Daily Report, AI Feishu Daily Report
+### 2. Web3 Community News (Daily 06:03)
+- Searches Web3/blockchain industry news (tech upgrades, protocol development, regulatory policy, security)
+- Generates Chinese-language community news digest: 【Web3 行业资讯｜社区早报】
+- Max 6 items, each with title, summary, community discussion value, source link
+- Strict Feishu compliance: no token prices, no investment advice, no promotional content
+- Pushes to Feishu webhook: 397392a2-ae0e-483f-bf0c-e9b939808699
+- Cron ID: `be55a9fb`
 
-### 2. Three Automations Configuration
-- **Daily Codex Chat Backup**: Runs at 20:07 daily, backs up chat content to GitHub repo `AmberTreelet/codex`
-- **Web3 Daily Report (每日 Web3 飞书日报)**: Runs at 06:03 daily, searches Web3/crypto news from X and Reddit, generates Chinese-language daily report, sends to Feishu webhook
-- **AI Daily Report (AI 资讯日报)**: Runs at 06:13 daily, searches AI tech news from X, Reddit, and other sources, generates Chinese-language daily report, sends to Feishu webhook
+### 3. AI Community News (Daily 06:13)
+- Searches AI tech news (X, Reddit r/MachineLearning, r/LocalLLaMA, Hacker News, arXiv, The Verge)
+- Generates Chinese-language community news digest: 【AI 科技资讯｜社区早报】
+- Max 6 items, each with title, summary, community discussion value, source link
+- Pushes to Feishu webhook: 89b2452d-ae2d-4417-a06e-84ebdd6d2a7b
+- Cron ID: `2262452b`
 
-### 3. Technical Details
-- Codex automations set to INACTIVE status
-- Cron jobs created in Claude Code for execution
-- Claude CLI version: 2.1.150
-- Working directory: `/Users/1070674011qq.com/Documents/New project`
+### 4. Auto-Renewal (Every 3 days)
+- Recreates all 4 cron jobs to prevent 7-day expiry
+- Cron ID: `ac07af96`
 
-### 4. Manual Test Run
-- All three automations were manually triggered for testing on 2026-05-25
-- Feishu webhooks: Web3 (397392a2-...) and AI (89b2452d-...) configured
+## Technical Details
+- Platform: Claude Code 2.1.150 via VS Code extension
+- Permissions: WebSearch, WebFetch, Bash(curl *), Bash(git *), Bash(python3 *) all auto-allowed
+- Durable cron: enabled
+- Project: `/Users/1070674011qq.com`
 
-## Notes
-- Original Codex account was using a shared account; now switching to personal account
-- Claude Code CronCreate jobs have 7-day expiry limitation — will need renewal
+## Test Results (2026-05-25)
+- Web3 community news: Sent to Feishu successfully
+- AI community news: Sent to Feishu successfully
+- Chat backup: Pushed to GitHub successfully
+- Cron test: Verified Full Disk Access permission for system cron
+- Permission auto-allow: Configured and verified
